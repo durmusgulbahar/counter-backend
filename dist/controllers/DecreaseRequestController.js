@@ -9,13 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.test = exports.getValue = void 0;
+exports.decreaseRequest = void 0;
 const prismaClient_1 = require("../prisma/prismaClient");
-const getValue = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const decreaseRequest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const value = yield prismaClient_1.prismaClient.value.findMany();
-        console.log("Value :", value);
-        res.send(value);
+        const increase = yield prismaClient_1.prismaClient.value.updateMany({
+            data: {
+                value: {
+                    decrement: 1,
+                }
+            },
+        });
+        res.send(`Value decreased successfully!`);
     }
     catch (error) {
         console.log("Error :", error);
@@ -25,15 +30,4 @@ const getValue = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         yield prismaClient_1.prismaClient.$disconnect();
     }
 });
-exports.getValue = getValue;
-const test = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        console.log("Test");
-        res.send("Test");
-    }
-    catch (error) {
-        console.log("Error :", error);
-        res.send(error);
-    }
-});
-exports.test = test;
+exports.decreaseRequest = decreaseRequest;
