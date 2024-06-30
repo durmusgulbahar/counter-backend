@@ -1,13 +1,24 @@
-// src/index.ts
+import express from "express"
+import * as dotenv from "dotenv"
+import cors from "cors"
+import helmet from "helmet"
+import router from "./routes/api"
+dotenv.config()
 
-import http from 'http';
+if (!process.env.PORT) {
+    console.log(`No port value specified...`)
+}
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello, TypeScript with Node.js!\n');
-});
+const PORT = parseInt(process.env.PORT as string, 10)
 
-server.listen(3000, '127.0.0.1', () => {
-  console.log('Server running at http://127.0.0.1:3000/');
-});
+const app = express()
+
+app.use(express.json())
+app.use(express.urlencoded({extended : true}))
+app.use(cors())
+app.use(helmet())
+app.use("/api", router);
+
+app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`)
+})
