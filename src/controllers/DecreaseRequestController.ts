@@ -1,17 +1,17 @@
 import { prismaClient } from '../prisma/prismaClient'
 import { Request, Response } from 'express';
 
-export const increaseRequest = async (req: Request,res: Response) => {
+export const decreaseRequest = async (req: Request,res: Response) => {
     try {
         const increase = await prismaClient.value.updateMany({
             data: {
                 value: {
-                    increment: 1,
+                    decrement: 1,
                 }
             },
         })
        
-        res.send(`Value increased successfully!`);
+        res.send(`Value decreased successfully!`);
 
     } catch (error) {
         console.log("Error :", error)

@@ -15,5 +15,5 @@ datasource db {
 
 model Value {
   id Int @id @default(autoincrement())
-  value Int
+  value Int @default(0)
 }
