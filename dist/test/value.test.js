@@ -8,26 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.decreaseRequest = void 0;
-const prismaClient_1 = require("../prisma/prismaClient");
-const decreaseRequest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const decrease = yield prismaClient_1.prismaClient.value.updateMany({
-            data: {
-                value: {
-                    decrement: 1,
-                }
-            },
-        });
-        res.status(200).send(`Value decreased successfully!`);
-    }
-    catch (error) {
-        console.log("Error :", error);
-        res.send(error);
-    }
-    finally {
-        yield prismaClient_1.prismaClient.$disconnect();
-    }
+const index_1 = __importDefault(require("../index"));
+const server_1 = __importDefault(require("../server"));
+const supertest_1 = __importDefault(require("supertest"));
+afterAll((done) => {
+    server_1.default.close(done); // Ensure the server is closed after tests
 });
-exports.decreaseRequest = decreaseRequest;
+describe('GET /api/test', () => {
+    it('should return Test', () => __awaiter(void 0, void 0, void 0, function* () {
+        const res = yield (0, supertest_1.default)(index_1.default).get('/api/test');
+        expect(res.status).toBe(200);
+        expect(res.body.msg).toEqual('Test');
+    }));
+});

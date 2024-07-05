@@ -5,12 +5,6 @@ import helmet from "helmet"
 import router from "./routes/api"
 dotenv.config()
 
-if (!process.env.PORT) {
-    console.log(`No port value specified...`)
-}
-
-const PORT = parseInt(process.env.PORT as string, 10)
-
 const app = express()
 
 app.use(express.json())
@@ -19,6 +13,5 @@ app.use(cors())
 app.use(helmet())
 app.use("/api", router);
 
-app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`)
-})
+
+export default app;

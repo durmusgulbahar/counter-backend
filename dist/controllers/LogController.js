@@ -9,31 +9,43 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.test = exports.getValue = void 0;
+exports.log = void 0;
 const prismaClient_1 = require("../prisma/prismaClient");
-const getValue = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const log = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const value = yield prismaClient_1.prismaClient.value.findFirst();
-        console.log("Value :", value);
-        res.send(value);
+        const l = yield prismaClient_1.prismaClient.log.create({
+            data: {
+                message: "Test log",
+                request_type: "Increase",
+                createdAt: new Date()
+            }
+        });
+        res.send(l);
     }
     catch (error) {
-        console.log("Error :", error);
         res.send(error);
     }
     finally {
         yield prismaClient_1.prismaClient.$disconnect();
     }
 });
-exports.getValue = getValue;
-const test = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.log = log;
+const log_test = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { request_type } = req.body;
     try {
-        console.log("Test");
-        res.json({ msg: "Test" });
+        const l = yield prismaClient_1.prismaClient.log.create({
+            data: {
+                message: "Test log",
+                request_type: request_type,
+                createdAt: new Date()
+            }
+        });
+        res.send(l);
     }
     catch (error) {
-        console.log("Error :", error);
-        res.json({ error: error });
+        res.send(error);
+    }
+    finally {
+        yield prismaClient_1.prismaClient.$disconnect();
     }
 });
-exports.test = test;

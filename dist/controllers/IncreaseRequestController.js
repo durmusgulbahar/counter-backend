@@ -20,7 +20,7 @@ const increaseRequest = (req, res) => __awaiter(void 0, void 0, void 0, function
                 }
             },
         });
-        res.send(`Value increased successfully!`);
+        res.status(200).send(`Value increased successfully!`);
     }
     catch (error) {
         console.log("Error :", error);

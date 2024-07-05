@@ -9,25 +9,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.decreaseRequest = void 0;
-const prismaClient_1 = require("../prisma/prismaClient");
-const decreaseRequest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const decrease = yield prismaClient_1.prismaClient.value.updateMany({
-            data: {
-                value: {
-                    decrement: 1,
-                }
-            },
-        });
-        res.status(200).send(`Value decreased successfully!`);
-    }
-    catch (error) {
-        console.log("Error :", error);
-        res.send(error);
-    }
-    finally {
-        yield prismaClient_1.prismaClient.$disconnect();
-    }
-});
-exports.decreaseRequest = decreaseRequest;
+test('number', () => __awaiter(void 0, void 0, void 0, function* () {
+    expect(1 + 3).toEqual(4);
+}));

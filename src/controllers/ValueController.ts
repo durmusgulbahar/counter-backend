@@ -2,8 +2,9 @@ import { prismaClient } from '../prisma/prismaClient'
 import { Request, Response } from 'express';
 
 export const getValue = async (req: Request, res: Response) => {
+ 
     try {
-        const value = await prismaClient.value.findMany();
+        const value = await prismaClient.value.findFirst();
         console.log("Value :", value);
         res.send(value);
     } catch (error) {
@@ -18,9 +19,9 @@ export const getValue = async (req: Request, res: Response) => {
 export const test = async (req: Request, res: Response) => {
     try {
         console.log("Test")
-        res.send("Test");
+        res.json({msg:"Test"});
     } catch (error) {
         console.log("Error :", error);
-        res.send(error);
+        res.json({error:error});
     }
 }

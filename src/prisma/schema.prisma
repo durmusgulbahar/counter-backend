@@ -13,11 +13,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Log {
+  id        Int      @id @default(autoincrement())
+  message   String
+  request_type String
+  createdAt DateTime @default(now())
+}
+
 model Value {
   id Int @id @default(autoincrement())
   value Int @default(0)
-}
-
-model Log {
-  
 }
