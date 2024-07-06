@@ -9,19 +9,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllLogs = void 0;
+exports.log = void 0;
 const prismaClient_1 = require("../prisma/prismaClient");
-const getAllLogs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const log = (message, request_type) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const logs = yield prismaClient_1.prismaClient.log.findMany();
-        res.status(200).send(logs);
+        const l = yield prismaClient_1.prismaClient.log.create({
+            data: {
+                message: message,
+                request_type: request_type,
+                createdAt: new Date()
+            }
+        });
+        console.log(l);
     }
     catch (error) {
-        console.log("Error :", error);
-        res.status(500).json({ error: "Internal Server Error" }); // Don't send raw errors
+        console.log(error);
     }
     finally {
         yield prismaClient_1.prismaClient.$disconnect();
     }
 });
-exports.getAllLogs = getAllLogs;
+exports.log = log;

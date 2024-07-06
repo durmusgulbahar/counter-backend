@@ -1,6 +1,6 @@
 import { prismaClient } from '../prisma/prismaClient'
 import { Request, Response } from 'express';
-
+import { log } from '../utils/logs';
 export const increaseRequest = async (req: Request, res: Response) => {
     try {
         const increase = await prismaClient.value.updateMany({
@@ -12,6 +12,7 @@ export const increaseRequest = async (req: Request, res: Response) => {
         })
 
         res.status(200).send(`Value increased successfully!`);
+        await log("Value increased successfully!", "increase");
 
     } catch (error) {
         console.log("Error :", error)

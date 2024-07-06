@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.increaseRequest = void 0;
 const prismaClient_1 = require("../prisma/prismaClient");
+const logs_1 = require("../utils/logs");
 const increaseRequest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const increase = yield prismaClient_1.prismaClient.value.updateMany({
@@ -21,10 +22,11 @@ const increaseRequest = (req, res) => __awaiter(void 0, void 0, void 0, function
             },
         });
         res.status(200).send(`Value increased successfully!`);
+        yield (0, logs_1.log)("Value increased successfully!", "increase");
     }
     catch (error) {
         console.log("Error :", error);
-        res.send(error);
+        res.status(500).json({ error: "Internal Server Error" }); // Don't send raw errors
     }
     finally {
         yield prismaClient_1.prismaClient.$disconnect();

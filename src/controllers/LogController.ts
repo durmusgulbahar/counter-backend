@@ -1,46 +1,18 @@
 import { prismaClient } from '../prisma/prismaClient'
 import { Request, Response } from 'express';
 
-export const log = async (req: Request, res: Response) => {
-    
+export const getAllLogs = async (req: Request, res: Response) => {
     try {
-        const l = await prismaClient.log.create({
+        
+        const logs = await prismaClient.log.findMany();
 
-            data: {
-                message: "Test log",
-                request_type: "Increase",
-                createdAt: new Date()
-            }
-    
-        })
+        res.status(200).send(logs);
+       
 
-        res.send(l);
     } catch (error) {
-        res.send(error);
-    }
-    finally{
-        await prismaClient.$disconnect();
-    }
-}
-
-const log_test = async (req:Request, res:Response) => {
-    const { request_type } = req.body;
-    try {
-        const l = await prismaClient.log.create({
-
-            data: {
-                message: "Test log",
-                request_type: request_type,
-                createdAt: new Date()
-            }
-    
-        })
-
-        res.send(l);
-    } catch (error) {
-        res.send(error);
-    }
-    finally{
+        console.log("Error :", error)
+        res.status(500).json({ error: "Internal Server Error" }); // Don't send raw errors
+    } finally {
         await prismaClient.$disconnect();
     }
 }
