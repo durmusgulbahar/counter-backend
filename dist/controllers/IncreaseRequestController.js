@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.increaseRequest = void 0;
-const prismaClient_1 = require("../prisma/prismaClient");
+const prismaClient_1 = require("../utils/prismaClient");
 const logs_1 = require("../utils/logs");
 const increaseRequest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

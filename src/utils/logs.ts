@@ -1,4 +1,4 @@
-import { prismaClient } from '../prisma/prismaClient'
+import { prismaClient } from '../utils/prismaClient'
 
 export const log = async (message:string, request_type:string) => {
     

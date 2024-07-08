@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.test = exports.getValue = void 0;
-const prismaClient_1 = require("../prisma/prismaClient");
+const prismaClient_1 = require("../utils/prismaClient");
 const getValue = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const value = yield prismaClient_1.prismaClient.value.findFirst();

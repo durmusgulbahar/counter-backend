@@ -1,4 +1,4 @@
-import { prismaClient } from '../prisma/prismaClient'
+import { prismaClient } from '../utils/prismaClient'
 import { Request, Response } from 'express';
 
 export const getAllLogs = async (req: Request, res: Response) => {
