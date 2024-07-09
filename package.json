@@ -1,11 +1,11 @@
 {
   "name": "counter-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
-    "start": "ts-node src/index.ts",
-    "dev": "ts-node-dev src/index.ts",
+    "start": "node dist/server.js",
+    "dev": "node dist/server.js",
     "test": "npx jest dist/test"
   },
   "devDependencies": {
