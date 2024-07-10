@@ -12,6 +12,8 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - counter-app-network
 
   app:
     build: .
@@ -20,10 +22,15 @@ services:
       - db
     ports:
       - "4000:4000"
+    networks:
+      - counter-app-network
     environment:
       DATABASE_URL: "postgresql://admin:123@db:5432/counterapp"
       
     command: ["npm", "start"]
+networks:
+  counter-app-network:
+    external: true
 
 volumes:
   postgres_data:
