@@ -1,13 +1,17 @@
-// src/index.ts
+import express from "express"
+import * as dotenv from "dotenv"
+import cors from "cors"
+import helmet from "helmet"
+import router from "./routes/api"
+dotenv.config()
 
-import http from 'http';
+const app = express()
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello, TypeScript with Node.js!\n');
-});
+app.use(express.json())
+app.use(express.urlencoded({extended : true}))
+app.use(cors())
+app.use(helmet())
+app.use("/api", router);
 
-server.listen(3000, '127.0.0.1', () => {
-  console.log('Server running at http://127.0.0.1:3000/');
-});
+
+export default app;

@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: counterapp
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - counter-app-network
+
+  app:
+    build: .
+    container_name: counter-app
+    depends_on:
+      - db
+    ports:
+      - "4000:4000"
+    networks:
+      - counter-app-network
+    environment:
+      DATABASE_URL: "postgresql://admin:123@db:5432/counterapp"
+      
+    command: ["npm", "start"]
+networks:
+  counter-app-network:
+    external: true
+
+volumes:
+  postgres_data:
