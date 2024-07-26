@@ -4,7 +4,6 @@ FROM node:20
 # Create and change to the app directory
 WORKDIR /counter-backend
 
-
 # Copy package.json and package-lock.json
 COPY package*.json ./
 

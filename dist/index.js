@@ -33,9 +33,13 @@ const helmet_1 = __importDefault(require("helmet"));
 const api_1 = __importDefault(require("./routes/api"));
 dotenv.config();
 const app = (0, express_1.default)();
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200 // For legacy browser support
+};
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)(corsOptions)); // Use the CORS middleware with options
 app.use((0, helmet_1.default)());
-app.use("/api", api_1.default);
+app.use('/api', api_1.default);
 exports.default = app;
