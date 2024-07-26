@@ -28,6 +28,19 @@ services:
       DATABASE_URL: "postgresql://admin:123@db:5432/counterapp"
       
     command: ["npm", "start"]
+  
+
+  frontend:
+    build:  # Replace with the path to your frontend directory
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - app
+    networks:
+      - counter-app-network
+    command: ["npm", "start"]
+
 networks:
   counter-app-network:
     external: true
